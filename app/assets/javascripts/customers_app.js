@@ -46,9 +46,9 @@ app.controller("CustomerSearchController", [
 app.controller("CustomerDetailController", [
           "$scope", "$http", "$routeParams", "$resource",
   function($scope, $http, $routeParams, $resource){
-    var customerId = $routeParams.id;
+    $scope.customerId = $routeParams.id;
     var Customer = $resource('/customers/:customerId.json')
-    $scope.customer = Customer.get({ "customerId": customerId})
+    $scope.customer = Customer.get({ "customerId": $scope.customerId})
 
     $http.get(
       "/customers/" + customerId + ".json"
@@ -57,6 +57,16 @@ app.controller("CustomerDetailController", [
     },function(response){
       alert("There was a problem: " + response.status);
     });
+  }
+]);
+
+app.controller("CustomerCreditCardController", [
+          "$scope", "$resource",
+  function($scope, $resource){
+    var CreditCardInfo = $resource('/fake_billing.json')
+    $scope.setCardholderId = function(cardholderId){
+      $scope.creditCard = CreditCardInfo.get({ "cardholder_id": cardholderId})
+    }
   }
 ]);
 

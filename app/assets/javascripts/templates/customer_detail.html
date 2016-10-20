@@ -103,21 +103,35 @@
           </h2>
         </header>
         <section class="panel-body">
-          <article>
+          <article ng-controller="CustomerCreditCardController"
+                   ng-init="setCardholderId(customerId)">
             <div class="row">
-              <div class="col-md-7">
-                <p class="h4">
-                  ****-****-****-1234
-                  <span class="label label-success">VISA</span>
-                </p>
-                <p class="h5">
-                  <label>Expires:</label> 04/19
-                </p>
+              <div ng-if="!creditCard.$resolved">
+                <aside class="progress">
+                  <div class="progress-bar progress-bar-striped active" style="width: 100%">
+                    Loading...
+                  </div>
+                </aside>
               </div>
-              <div class="col-md-5 text-right">
-                <button class="btn btn-lg btn-default">
-                  View Details…
-                </button>
+              <div ng-if="creditCard.$resolved">
+                <div class="col-md-7">
+                  <p class="h4">
+                    ****-****-****-{{creditCard.lastFour}}
+                    <span class="label label-success">
+                      {{creditCard.cardType}}
+                    </span>
+                  </p>
+                  <p class="h5">
+                    <label>Expires:</label>
+                    {{creditCard.expirationMonth}}/{{creditCard.expirationYear}}
+                  </p>
+                </div>
+                <div class="col-md-5 text-right">
+                  <a href="{{creditCard.detailsLink}}"
+                     class="btn btn-lg btn-default">
+                     View Details...
+                  </a>
+                </div>
               </div>
             </div>
           </article>
