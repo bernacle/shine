@@ -1,4 +1,4 @@
-var app = angular.module('customers',['ngRoute', 'templates']);
+var app = angular.module('customers',['ngRoute', 'ngResource', 'templates']);
 
 app.controller("CustomerSearchController", [
           '$scope','$http', '$location',
@@ -44,10 +44,11 @@ app.controller("CustomerSearchController", [
 ]);
 
 app.controller("CustomerDetailController", [
-          "$scope", "$http", "$routeParams",
-  function($scope, $http, $routeParams){
+          "$scope", "$http", "$routeParams", "$resource",
+  function($scope, $http, $routeParams, $resource){
     var customerId = $routeParams.id;
-    $scope.customer = {};
+    var Customer = $resource('/customers/:customerId.json')
+    $scope.customer = Customer.get({ "customerId": customerId})
 
     $http.get(
       "/customers/" + customerId + ".json"

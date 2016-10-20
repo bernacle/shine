@@ -7,7 +7,7 @@
 # Visit http://www.pragmaticprogrammer.com/titles/dcbang for more book information.
 #---
 if Customer.all.count == 0
-  350_000.times do |i|
+  10_000.times do |i|
     Customer.create!(
       first_name: Faker::Name.first_name,
        last_name: Faker::Name.last_name,
