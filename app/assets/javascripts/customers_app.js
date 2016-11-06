@@ -86,6 +86,7 @@ app.controller("CustomerCreditCardController", [
   }
 ]);
 
+
 app.config(["$routeProvider", function($routeProvider){
   $routeProvider.when("/", {
     controller: "CustomerSearchController",
@@ -95,3 +96,28 @@ app.config(["$routeProvider", function($routeProvider){
     templateUrl: "customer_detail.html"
   });
 }]);
+
+app.directive("customerSummary", function() {
+  return {
+    "scope": {
+      "cust": "=",
+      "viewDetailsFunction": "="
+    },
+    "templateUrl": "customer_summary.html"
+  }
+});
+
+app.filter("name", function() {
+  return function(input){
+    if(!input){
+      return input
+    }
+
+    if( (input.toLowerCase() === input) || (input.toUpperCase() === input)){
+      return input.chartAt(0).toUpperCase() + input.slice(1).toLowerCase()
+    }
+    else {
+      return input;
+    }
+  }
+});
