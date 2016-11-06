@@ -1,7 +1,7 @@
 var app = angular.module("customers");
 app.controller("CustomerDetailController", [
-          "$scope", "$http", "$routeParams", "$resource",
-  function($scope, $http, $routeParams, $resource){
+          "$scope", "$http", "$routeParams", "$resource", "$uibModal",
+  function($scope, $http, $routeParams, $resource, uibModal){
     $scope.customerId = $routeParams.id;
     var Customer = $resource('/customers/:customerId.json',
                              {"customerId": "@customer_id"},
@@ -13,12 +13,41 @@ app.controller("CustomerDetailController", [
             function(){
               $scope.form.$setPristine();
               $scope.form.$setUntouched();
-              alert("Save Successful!");
+              $scope.alert = {
+                type: "success",
+                message: "Customer successfully saved."
+              };
             },
-            function(){
-              alert("Save Failed :(")
+            function(data){
+              $scope.alert = {
+                type: "danger",
+                message: "Customer couldn't be saved"
+              }
             }
           );
+
+          $scope.closeAlert = function(index){
+            $scope.alert = undefined;
+          }
+
+          $scope.deactivate = function(){
+            var modalInstance = $uibModal.open({
+              templateUrl: 'confirm_deactivate.html',
+              controller: 'ConfirmDeactivateController'
+            });
+
+            modalInstance.result.then(function(){
+              $scope.alert = {
+                type: "success",
+                message: "Customer deactivated"
+              }
+            }, function(reason){
+              $scope.alert = {
+                type: "warning",
+                message: "Customer still active"
+              }
+            });
+          }
         }
     }
 

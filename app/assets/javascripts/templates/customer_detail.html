@@ -10,6 +10,13 @@
   <customer-summary cust="customer"></customer-summary>
   <hr>
 </header>
+<section>
+  <uib-alert ng-show="alert"
+         type="{{alert.type}}"
+         close="closeAlert()">
+    {{alert.message}}
+  </uib-alert>
+</section>
 <form novalidate name="form">
   <div class="row">
 
@@ -104,7 +111,7 @@
             </p>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-12">
               <div class="form-group">
                 <label class="sr-only" for="city">City</label>
                 <input type="text" class="form-control" required
@@ -114,7 +121,7 @@
                 </p>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-4">
               <div class="form-group">
                 <label class="sr-only" for="state">State</label>
                 <input type="text" class="form-control"
@@ -126,7 +133,7 @@
                 </p>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-8">
               <div class="form-group has-feedback" ng-class="{
                   'has-error': form.shippingZip.$invalid && form.shippingZip.$dirty,
                 'has-success': form.shippingZip.$valid   && form.shippingZip.$touched
@@ -263,6 +270,10 @@
       </section>
     </article>
     <div class="text-right">
+      <button ng-click="deactivate()" class="btn btn-lg btn-danger">
+        <i class="glyphicon glyphicon-ban-circle"></i>
+        Deactivate Customer
+      </button>
       <button ng-click="save()"
               class="btn btn-lg btn-primary"
               ng-disabled="form.$invalid || form.$pristine">
