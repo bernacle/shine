@@ -1,6 +1,13 @@
+#---
+# Excerpted from "Rails, Angular, Postgres, and Bootstrap",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit http://www.pragmaticprogrammer.com/titles/dcbang for more book information.
+#---
 require File.expand_path('../boot', __FILE__)
 
-require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -14,7 +21,6 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
 module Shine
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -35,6 +41,15 @@ module Shine
       # Do not swallow errors in after_commit/after_rollback callbacks.
       config.active_record.raise_in_transactional_callbacks = true
     end
-    config.assets.paths << Rails.root.join("vendor","assets","bower_components")
+    config.assets.paths << Rails.root.join("vendor",
+                                           "assets",
+                                           "bower_components")
+    config.assets.paths << Rails.root.join("vendor",
+                                           "assets",
+                                           "bower_components",
+                                           "bootstrap-sass-official",
+                                           "assets",
+                                           "fonts")
+    config.assets.precompile << /\.(?:svg|eot|woff|ttf|woff2)\z/
   end
 end
